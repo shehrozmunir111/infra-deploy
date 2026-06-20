@@ -22,6 +22,11 @@ curl -SL "https://github.com/docker/compose/releases/download/v2.29.7/docker-com
   -o $DOCKER_CONFIG/cli-plugins/docker-compose
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 
+# Shared proxy network: HealthPA's Caddy (owns :443) also terminates HTTPS for
+# the expense domain by reaching expense-web over this network. Both compose
+# files declare it as external, so it must exist before either app starts.
+docker network create webproxy 2>/dev/null || true
+
 # ── 3. Create the second database on the shared RDS instance ─────────
 # expense-forecasting uses its own database, but the same RDS server.
 export PGPASSWORD='${db_pass}'
