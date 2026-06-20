@@ -48,8 +48,10 @@ chmod 600 "$APP1/.env"
 cd "$APP1"
 docker compose -f infra/docker-compose.prod.yml up -d --build
 sleep 20
-docker compose -f infra/docker-compose.prod.yml exec -T api alembic upgrade head || \
-  echo "WARNING: HealthPA alembic upgrade failed — run it manually (see infra/README.md)"
+# Create tables via the app's init helper (create_all). The alembic env mixes a
+# sync URL with an async engine, so `alembic upgrade head` fails here.
+docker compose -f infra/docker-compose.prod.yml exec -T api python init_db.py || \
+  echo "WARNING: HealthPA table creation failed — run 'docker compose ... exec -T api python init_db.py' manually"
 
 # ── 5. expense-forecasting: clone, fetch env, build & start ──────────
 # Built AFTER HealthPA (sequential) to keep peak memory down on t3.micro.
