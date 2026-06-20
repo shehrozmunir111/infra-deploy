@@ -42,7 +42,7 @@ locals {
     PINECONE_CLOUD=aws
     PINECONE_REGION=${var.aws_region}
 
-    HITL_CHECKPOINTER=postgres
+    HITL_CHECKPOINTER=memory
     ENABLE_WEB_SEARCH=True
     TAVILY_API_KEY=${var.tavily_api_key}
     LANGSMITH_TRACING=False
