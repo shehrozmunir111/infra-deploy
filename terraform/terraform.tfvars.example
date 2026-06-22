@@ -20,7 +20,8 @@ expense_git_branch   = "main"
 db_password = "change-me-strong-password"
 
 # App secrets (mirror your .env)
-app_secret_key   = "run: python -c \"import secrets; print(secrets.token_hex(32))\""
+app_secret_key     = "run: python -c \"import secrets; print(secrets.token_hex(32))\""
+expense_secret_key = "run: python -c \"import secrets; print(secrets.token_urlsafe(48))\"" # JWT key for FinanceFlow
 groq_api_key      = ""
 openai_api_key    = ""
 pinecone_api_key  = ""

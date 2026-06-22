@@ -126,6 +126,12 @@ variable "app_secret_key" {
   sensitive = true
 }
 
+variable "expense_secret_key" {
+  description = "JWT signing key for the expense-forecasting app (separate from HealthPA)."
+  type        = string
+  sensitive   = true
+}
+
 variable "groq_api_key" {
   type      = string
   default   = ""

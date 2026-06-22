@@ -79,6 +79,11 @@ locals {
     DEBUG=False
     LOG_LEVEL=INFO
 
+    # Auth / JWT (its own secret, separate from HealthPA's).
+    SECRET_KEY=${var.expense_secret_key}
+    ALGORITHM=HS256
+    ACCESS_TOKEN_EXPIRE_MINUTES=10080
+
     DATABASE_URL=${local.expense_database_url}
     REDIS_URL=redis://redis:6379/0
 
